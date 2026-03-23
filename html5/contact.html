@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>ERP - Contact</title>
+    <!-- Încărcăm toate stylesheet-urile create de tine -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+<!--    <link rel="stylesheet" href="styles/vertical-navbar.css">-->
+<!--    <link rel="stylesheet" href="styles/responsive-vertical-navbar.css">-->
+    <link rel="stylesheet" href="styles/adauga_contract.css">
+</head>
+<body>
+<svg style="display: none;">
+    <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path>
+    </symbol>
+    <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+    </symbol>
+    <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+    </symbol>
+</svg>
+
+<header>
+    <h1>Management Resurse Inteligent</h1>
+    <nav>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#dashboard-icon"></use>
+            </svg>
+            <a href="dashboard.html">DashBoard</a>
+        </div>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#contact-icon"></use>
+            </svg>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#home-icon"></use>
+            </svg>
+            <a href="index.html">Home</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- Folosim clasa 'section' din main.css care oferă umbrele și marginile rotunjite -->
+    <section id="contact-info">
+        <h2>Informații de Contact</h2>
+
+        <!-- Refolosim .card-list pentru a afișa datele de contact sub formă de carduri -->
+        <ul class="card-list">
+            <li>
+                <b>Asistență Tehnică</b>
+                Suport dedicat 24/7. <br>
+                <a href="mailto:support@erp-core.ro" style="color: var(--accent);">support@erp-core.ro</a>
+            </li>
+            <li>
+                <b>Departament Vânzări</b>
+                Consultanță și oferte. <br>
+                <a href="mailto:sales@erp-core.ro" style="color: var(--accent);">sales@erp-core.ro</a>
+            </li>
+            <li>
+                <b>Sediu Central</b>
+                Str. Inovației Nr. 10, București.<br>
+                <span style="color: var(--text-muted); font-size: 0.9rem;">Luni - Vineri: 09:00 - 18:00</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Folosim stilurile de formular din adauga_contract.css -->
+    <section id="contact-form-section">
+        <h2>Trimite-ne un mesaj</h2>
+
+        <form action="#" method="post">
+            <fieldset>
+                <legend>Formular de Contact</legend>
+
+                <div class="form-row">
+                    <label for="nume">Nume Complet:</label>
+                    <input type="text" id="nume" name="nume" required placeholder="Ex: Popescu Ion">
+                </div>
+
+                <div class="form-row">
+                    <label for="email">Adresă Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="nume@companie.ro">
+                </div>
+
+                <div class="form-row">
+                    <label for="subiect">Subiect Mesaj:</label>
+                    <!-- Aplicăm aceleași dimensiuni ca la input-urile tale -->
+                    <select id="subiect" name="subiect" style="width: 60%; height: 2.5rem; border-radius: 10px; border: 1px solid var(--border); padding: 5px;">
+                        <option value="suport">Suport Tehnic (Helpdesk)</option>
+                        <option value="vanzari">Ofertă Comercială (Vânzări)</option>
+                        <option value="parteneriat">Parteneriat Strategic</option>
+                        <option value="altele">Altele</option>
+                    </select>
+                </div>
+
+                <div class="form-row" style="height: auto; align-items: flex-start; margin-top: 10px;">
+                    <label for="mesaj">Mesajul tău:</label>
+                    <textarea id="mesaj" name="mesaj" rows="5" style="width: 60%; border-radius: 10px; border: 1px solid var(--border); padding: 10px; font-family: inherit; resize: vertical;" required placeholder="Scrie aici detaliile..."></textarea>
+                </div>
+
+            </fieldset>
+
+            <div class="form-actions">
+                <input type="reset" value="Resetează Formular" title="Șterge câmpurile">
+                <input type="submit" value="Trimite Mesajul" style="background-color: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            </div>
+        </form>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <div id="audit">
+            <h4>Audit Calitate</h4>
+            <p>Efectuăm verificări riguroase asupra integrității datelor pentru a asigura acuratețea rapoartelor,
+                minimizând erorile umane.</p>
+        </div>
+        <div id="garantie">
+            <h4>Garanție Servicii</h4>
+            <p>Sistemul nostru beneficiază de suport tehnic extins, garantând remedierea oricărei neconformități în timp
+                record.</p>
+        </div>
+        <div id="standarde">
+            <h4>Standarde 2024</h4>
+            <p>Ne aliniem anual la cele mai noi reglementări internaționale de securitate cibernetică și management al
+                proceselor.</p>
+        </div>
+    </div>
+    <div id="license">
+        <h5>© 2024 Enterprise Resource Planning.</h5>
+        <h6>Inteligență Operațională Aplicată. Toate drepturile rezervate.</h6>
+    </div>
+</footer>
+
+</body>
+</html>

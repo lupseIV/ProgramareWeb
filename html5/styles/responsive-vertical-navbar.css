@@ -1,0 +1,41 @@
+@media (max-width: 1100px){
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+    nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+    header { flex-direction: column; height: auto; padding: 1rem; }
+    nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: static;
+        flex-direction: row;
+    }
+    .floated { float: none; width: 100%; margin: 0 0 1rem 0; height: auto; }
+    section { padding: 1.5rem; }
+    .card-list { grid-template-columns: 1fr; }
+    .container { flex-direction: column; }
+}
+
+@media (max-width: 400px){
+
+    header {
+        padding: 10px;
+        margin: 10px 0;
+    }
+    section {
+        display: inline-block;
+    }
+}

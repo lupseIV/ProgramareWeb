@@ -1,0 +1,229 @@
+:root {
+    --fieldset-color : #EDF5FC;
+    --input-bg: #f8fafc;
+    --focus-ring: rgba(59, 130, 246, 0.25);
+}
+
+form {
+    justify-items: center;
+}
+
+form fieldset{
+    border: 2px solid var(--border);
+    border-radius: 1rem;
+    background-color: var(--fieldset-color);
+    box-shadow: 3px 5px var(--box-shadow1);
+    padding: 1rem;
+    margin: 1rem;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;+-
+
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 0.5s, box-shadow 0.5s ;
+}
+
+form fieldset legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+form fieldset:hover{
+    transform: translateY(-4px);
+    box-shadow: 4px 10px var(--box-shadow1), 2px 7px var(--box-shadow2);
+}
+
+
+form fieldset label {
+    transition: font-weight 0.1s;
+}
+
+form fieldset:hover label{
+    font-weight: bolder;
+}
+
+form fieldset:active {
+    transform: translateY(-4px);
+
+}
+form fieldset:active label{
+    font-weight: bolder;
+}
+
+form fieldset:active input{
+    border: 0.5px solid black;
+}
+
+
+form fieldset:hover input{
+    border: 1px solid black;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-row {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem;
+}
+
+.form-row input{
+    height: 1.5rem;
+    width: 60%;
+
+    transition: border 0.1s;
+
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="password"],
+.form-row input[type="number"],
+.form-row select,
+fieldset p select, /* Pentru select-ul multiplu */
+fieldset p textarea {
+    width: 60%;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Starea de FOCUS (când scrii în ele) */
+.form-row input:focus,
+.form-row select:focus,
+fieldset p select:focus,
+fieldset p textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Câmpurile Read-Only (Care nu pot fi editate) */
+.form-row input[readonly] {
+    background-color: #e2e8f0;
+    color: var(--text-muted);
+    cursor: not-allowed;
+    border-style: dashed;
+}
+.form-row input[readonly]:focus {
+    box-shadow: none;
+    border-color: var(--border);
+}
+
+/* =========================================
+CHECKBOX-URI, RADIO BUTTONS & ALTE INPUT-URI
+=========================================
+*/
+fieldset p {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+fieldset p label {
+    margin-right: 15px;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent); /* Colorează bifa nativă în albastru */
+    cursor: pointer;
+}
+
+input[type="file"] {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 10px 0;
+}
+
+/* =========================================
+BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
+=========================================
+*/
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.form-actions input[type="submit"],
+.form-actions input[type="reset"] {
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+/* Butonul Principal (Înregistrează) */
+.form-actions input[type="submit"] {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 4px 6px -1px var(--focus-ring);
+}
+
+.form-actions input[type="submit"]:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px -1px var(--focus-ring);
+}
+
+/* Butonul Secundar (Resetează) */
+.form-actions input[type="reset"] {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+.form-actions input[type="reset"]:hover {
+    background-color: #f1f5f9;
+    color: var(--primary);
+}
+
+/* Responsive pe ecrane mici (Telefoane) */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .form-row label,
+    .form-row input[type="text"],
+    .form-row input[type="password"],
+    .form-row input[type="number"],
+    .form-row select,
+    fieldset p select,
+    fieldset p textarea {
+        width: 100%;
+    }
+}

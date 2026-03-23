@@ -1,0 +1,14 @@
+.sprite-box-home {
+    width: 60px;
+    height: 60px;
+    background: url("sprites/sprite-meniu-erp-stari-colorat.png") no-repeat -180px 0;
+}
+
+.nav-item:hover .sprite-box-home {
+    animation: playHomeColors 1s steps(10) infinite;
+}
+
+@keyframes playHomeColors {
+    0%   { background-position: -180px -60px; }
+    100% { background-position: -180px -660px; }
+}

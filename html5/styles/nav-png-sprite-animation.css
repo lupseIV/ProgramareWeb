@@ -1,0 +1,38 @@
+.sprite-box-home {
+    width: 60px;
+    height: 60px;
+    background: url("sprites/sprite-meniu-erp-stari.png") no-repeat -180px 0;
+
+    transition: transform 0.2s;
+}
+
+.nav-item:hover .sprite-box-home {
+    background-position: -180px -60px;
+    transform: translateY(-3px);
+}
+
+.sprite-box-contact {
+    width: 60px;
+    height: 60px;
+    background: url("sprites/sprite-meniu-erp-stari.png") no-repeat -120px 0;
+
+    transition: transform 0.2s;
+}
+
+.nav-item:hover .sprite-box-contact {
+    background-position: -120px -60px;
+    transform: translateY(-3px);
+}
+
+.sprite-box-dashboard {
+    width: 60px;
+    height: 60px;
+    background: url("sprites/sprite-meniu-erp-stari.png") no-repeat 0 0;
+
+    transition: transform 0.2s;
+}
+
+.nav-item:hover .sprite-box-dashboard {
+    background-position: 0 -60px;
+    transform: translateY(-3px);
+}

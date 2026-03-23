@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>ERP - Gestionare Resurse</title>
+    <link href="styles/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/adauga_contract.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+<svg style="display: none;">
+    <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path>
+    </symbol>
+    <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+    </symbol>
+    <symbol id="add-doc-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"></path>
+    </symbol>
+    <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+    </symbol>
+</svg>
+
+<header>
+    <h1>Management Resurse Inteligent</h1>
+    <nav>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#dashboard-icon"></use>
+            </svg>
+            <a href="dashboard.html">DashBoard</a></div>
+
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#contact-icon"></use>
+            </svg>
+            <a  href="contact.html">Contact</a>
+        </div>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24">
+                <use href="#home-icon"></use>
+            </svg>
+            <a href="index.html">Home</a>
+        </div>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>Privire de Ansamblu (KPIs)</h2>
+
+        <div class="dashboard-grid">
+            <div class="widget-card">
+                <div class="widget-title">Contracte Active</div>
+                <div class="widget-value">142</div>
+                <div class="trend-up">↑ +12% luna aceasta</div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-title">Valoare Totală (EUR)</div>
+                <div class="widget-value">€84,500</div>
+                <div class="trend-up">↑ +5.4% față de T1</div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-title">Sarcini Întârziate</div>
+                <div class="widget-value" style="color: red;">7</div>
+                <div class="trend-down">↓ Necesită atenție urgentă</div>
+            </div>
+        </div>
+
+        <div class="panels-grid">
+            <div class="widget-card">
+                <h3 style="color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">Stare Sistem</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    Toate modulele funcționează la parametri normali. Ultimul backup de securitate a fost efectuat cu succes azi la ora 04:00 AM. Serverul înregistrează o încărcare de <strong>24%</strong>.
+                </p>
+                <div style="margin-top: 15px; padding: 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534; font-size: 0.9rem;">
+                    <strong>Status:</strong> Securitate validată conform normelor.
+                </div>
+            </div>
+
+            <div class="widget-card">
+                <h3 style="color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">Activitate Recentă</h3>
+                <ul class="activity-list">
+                    <li>
+                        <span>Contract semnat: OP-9921</span>
+                        <span class="activity-time">Acum 10 min</span>
+                    </li>
+                    <li>
+                        <span>Actualizare CUI client Nou</span>
+                        <span class="activity-time">Acum 2 ore</span>
+                    </li>
+                    <li>
+                        <span>Factură generată (EUR)</span>
+                        <span class="activity-time">Azi, 09:30</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- O secțiune nouă pentru Cardurile Animate -->
+    <section>
+        <h2>Acțiuni Rapide</h2>
+        <div class="actions-grid">
+
+            <a href="adauga_contract.html" class="action-card">
+                <svg class="svg-icon-animated"><use href="#add-doc-icon"></use></svg>
+                <div class="action-title">Formular Contract Nou</div>
+                <div class="action-desc">Deschide panoul de gestiune resurse și adaugă un contract nou în baza de date.</div>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="sprite-animation-box"></div>
+                <div class="action-title">Validare și Aprobare</div>
+                <div class="action-desc">Urmeaza</div>
+            </a>
+
+        </div>
+    </section>
+</main>
+<footer>
+    <div class="container">
+        <div id="audit">
+            <h4>Audit Calitate</h4>
+            <p>Efectuăm verificări riguroase asupra integrității datelor pentru a asigura acuratețea rapoartelor,
+                minimizând erorile umane.</p>
+        </div>
+        <div id="garantie">
+            <h4>Garanție Servicii</h4>
+            <p>Sistemul nostru beneficiază de suport tehnic extins, garantând remedierea oricărei neconformități în timp
+                record.</p>
+        </div>
+        <div id="standarde">
+            <h4>Standarde 2024</h4>
+            <p>Ne aliniem anual la cele mai noi reglementări internaționale de securitate cibernetică și management al
+                proceselor.</p>
+        </div>
+    </div>
+    <div id="license">
+        <h5>© 2024 Enterprise Resource Planning.</h5>
+        <h6>Inteligență Operațională Aplicată. Toate drepturile rezervate.</h6>
+    </div>
+</footer>
+</body>
+</html>
