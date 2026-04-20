@@ -8,7 +8,7 @@ form {
     justify-items: center;
 }
 
-form fieldset{
+form fieldset {
     border: 2px solid var(--border);
     border-radius: 1rem;
     background-color: var(--fieldset-color);
@@ -18,12 +18,12 @@ form fieldset{
     width: 100%;
 
     display: flex;
-    flex-direction: column;+-
+    flex-direction: column;
 
     justify-content: center;
     align-items: center;
 
-    transition: transform 0.5s, box-shadow 0.5s ;
+    transition: transform 0.5s, box-shadow 0.5s;
 }
 
 form fieldset legend {
@@ -31,35 +31,25 @@ form fieldset legend {
     font-weight: bold;
 }
 
-form fieldset:hover{
+form fieldset:hover {
     transform: translateY(-4px);
     box-shadow: 4px 10px var(--box-shadow1), 2px 7px var(--box-shadow2);
 }
-
 
 form fieldset label {
     transition: font-weight 0.1s;
 }
 
-form fieldset:hover label{
+form fieldset:hover label {
     font-weight: bolder;
 }
 
 form fieldset:active {
     transform: translateY(-4px);
-
 }
-form fieldset:active label{
+
+form fieldset:active label {
     font-weight: bolder;
-}
-
-form fieldset:active input{
-    border: 0.5px solid black;
-}
-
-
-form fieldset:hover input{
-    border: 1px solid black;
 }
 
 
@@ -77,23 +67,24 @@ form fieldset:hover input{
     padding: 0.2rem;
 }
 
-.form-row input{
-    height: 1.5rem;
+.form-row input {
     width: 60%;
-
     transition: border 0.1s;
-
     border-radius: 10px;
     padding: 10px;
 }
 
+#durata,
 .form-row input[type="text"],
 .form-row input[type="password"],
 .form-row input[type="number"],
+.form-row input[type="email"],
+.form-row input[type="date"],
 .form-row select,
-fieldset p select, /* Pentru select-ul multiplu */
+fieldset p select,
 fieldset p textarea {
     width: 60%;
+    height: auto;
     padding: 0.7rem 1rem;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -105,8 +96,11 @@ fieldset p textarea {
     box-sizing: border-box;
 }
 
-/* Starea de FOCUS (când scrii în ele) */
-.form-row input:focus,
+.form-row input[type="text"]:focus,
+.form-row input[type="password"]:focus,
+.form-row input[type="number"]:focus,
+.form-row input[type="email"]:focus,
+.form-row input[type="date"]:focus,
 .form-row select:focus,
 fieldset p select:focus,
 fieldset p textarea:focus {
@@ -116,22 +110,18 @@ fieldset p textarea:focus {
     box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-/* Câmpurile Read-Only (Care nu pot fi editate) */
 .form-row input[readonly] {
     background-color: #e2e8f0;
     color: var(--text-muted);
     cursor: not-allowed;
-    border-style: dashed;
+    border: 1px solid var(--border);
 }
+
 .form-row input[readonly]:focus {
     box-shadow: none;
     border-color: var(--border);
 }
 
-/* =========================================
-CHECKBOX-URI, RADIO BUTTONS & ALTE INPUT-URI
-=========================================
-*/
 fieldset p {
     margin: 10px 0;
     display: flex;
@@ -151,7 +141,7 @@ input[type="checkbox"],
 input[type="radio"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--accent); /* Colorează bifa nativă în albastru */
+    accent-color: var(--accent);
     cursor: pointer;
 }
 
@@ -161,10 +151,6 @@ input[type="file"] {
     padding: 10px 0;
 }
 
-/* =========================================
-BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
-=========================================
-*/
 .form-actions {
     display: flex;
     justify-content: center;
@@ -185,7 +171,6 @@ BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
     border: none;
 }
 
-/* Butonul Principal (Înregistrează) */
 .form-actions input[type="submit"] {
     background-color: var(--accent);
     color: white;
@@ -198,7 +183,6 @@ BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
     box-shadow: 0 6px 10px -1px var(--focus-ring);
 }
 
-/* Butonul Secundar (Resetează) */
 .form-actions input[type="reset"] {
     background-color: transparent;
     border: 1px solid var(--border);
@@ -210,7 +194,6 @@ BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
     color: var(--primary);
 }
 
-/* Responsive pe ecrane mici (Telefoane) */
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;
@@ -221,9 +204,18 @@ BUTOANELE DE ACȚIUNE (SUBMIT / RESET)
     .form-row input[type="text"],
     .form-row input[type="password"],
     .form-row input[type="number"],
+    .form-row input[type="email"],
+    .form-row input[type="date"],
     .form-row select,
     fieldset p select,
     fieldset p textarea {
         width: 100%;
     }
+}
+
+.eroare-validare {
+    border: 2px solid #ef4444 !important;
+    background-color: #fef2f2 !important;
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.4) !important;
+    transition: all 0.3s ease;
 }

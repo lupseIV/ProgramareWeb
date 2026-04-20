@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>ERP - Adaugă Angajat</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/adauga_contract.css">
+</head>
+<body>
+<svg style="display: none;">
+  <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path>
+  </symbol>
+  <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+  </symbol>
+  <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+  </symbol>
+</svg>
+
+<header>
+  <h1>Management Resurse Inteligent</h1>
+  <nav>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#dashboard-icon"></use></svg>
+      <a href="dashboard.html">DashBoard</a>
+    </div>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#contact-icon"></use></svg>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#home-icon"></use></svg>
+      <a href="index.html">Home</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="add-employee">
+    <h1>Înregistrare Angajat Nou</h1>
+    <form id="form-angajat" action="#" method="post">
+      <fieldset>
+        <legend>Date Personale</legend>
+        <div class="form-row">
+          <label for="nume_angajat">Nume Complet:</label>
+          <input type="text" id="nume_angajat" name="nume_angajat" placeholder="Ex: Popescu Maria">
+        </div>
+        <div class="form-row">
+          <label for="cnp">CNP:</label>
+          <input type="text" id="cnp" name="cnp" placeholder="13 cifre" maxlength="13">
+        </div>
+
+        <div class="form-row">
+          <label for="gen">Gen (auto din CNP):</label>
+          <input type="text" id="gen" name="gen" readonly style="cursor: not-allowed;" placeholder="...">
+        </div>
+        <div class="form-row">
+          <label for="data_nasterii_cnp">Data Nașterii (auto):</label>
+          <input type="date" id="data_nasterii_cnp" name="data_nasterii_cnp" readonly style="cursor: not-allowed;">
+        </div>
+        <div class="form-row">
+          <label for="varsta">Vârsta (auto):</label>
+          <input type="number" id="varsta" name="varsta" readonly style="cursor: not-allowed;" placeholder="...">
+        </div>
+
+        <div class="form-row">
+          <label for="email_angajat">Email Personal:</label>
+          <input type="email" id="email_angajat" name="email_angajat" placeholder="nume@exemplu.ro">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Detalii Profesionale</legend>
+        <div class="form-row">
+          <label for="departament_ang">Departament:</label>
+          <select id="departament_ang" name="departament_ang">
+            <option value="">-- Selectează Departament --</option>
+            <option value="it">IT & Software</option>
+            <option value="hr">Resurse Umane</option>
+            <option value="sales">Vânzări</option>
+            <option value="management">Management</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="salariu">Salariu de bază (RON):</label>
+          <input type="number" id="salariu" name="salariu" step="100">
+        </div>
+        <div class="form-row">
+          <label for="data_angajare">Data Angajării:</label>
+          <input type="date" id="data_angajare" name="data_angajare">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Atașamente</legend>
+        <p>
+          <label for="cv_atasat">Atașează CV (PDF):</label>
+          <input type="file" id="cv_atasat" name="cv_atasat">
+        </p>
+        <p>
+          <label for="acord_gdpr">Atașează GDPR (PDF):</label>
+          <input type="file" id="acord_gdpr" name="acord_gdpr">
+        </p>
+      </fieldset>
+
+      <div class="form-actions">
+        <input type="reset" value="Anulează" onclick="window.location.href='dashboard.html'; return false;" title="Întoarce-te la Dashboard">
+        <input type="submit" value="Salvează Angajatul">
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div id="license" style="text-align: center; padding: 20px;">
+    <h5>© 2024 Enterprise Resource Planning. Toate drepturile rezervate.</h5>
+  </div>
+</footer>
+
+<script src="scripts/adauga_angajat.js"></script>
+</body>
+</html>

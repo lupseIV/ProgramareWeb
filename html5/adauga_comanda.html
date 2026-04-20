@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>ERP - Creare Comandă</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/adauga_contract.css">
+</head>
+<body>
+<svg style="display: none;">
+  <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path></symbol>
+  <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></symbol>
+  <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></symbol>
+  <symbol id="add-angajat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></symbol>
+  <symbol id="add-comanda-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1 2-2.76 5H8.53l-.13-.27L6.16 6l-.95-2-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"></path></symbol>
+</svg>
+
+<header>
+  <h1>Management Resurse Inteligent</h1>
+  <nav>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#dashboard-icon"></use></svg>
+      <a href="dashboard.html">DashBoard</a>
+    </div>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#contact-icon"></use></svg>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-item">
+      <svg fill="#3b82f6" height="24" width="24"><use href="#home-icon"></use></svg>
+      <a href="index.html">Home</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="add-order">
+    <h1>Plasare Comandă Nouă</h1>
+    <form id="form-comanda" action="#" method="post">
+      <fieldset>
+        <legend>Detalii Client</legend>
+        <div class="form-row">
+          <label for="tara_client">Țara Clientului:</label>
+          <select id="tara_client" name="tara_client">
+            <option value="">-- Alege Țara --</option>
+            <option value="Romania">România</option>
+            <option value="Germania">Germania</option>
+            <option value="Italia">Italia</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="client_comanda">Selectați Clientul:</label>
+          <select id="client_comanda" name="client_comanda">
+            <option value="">-- Alegeți întâi țara --</option>
+          </select>
+        </div>
+
+        <div class="form-row" style="align-items: flex-start;">
+          <label for="adresa_livrare_select" style="margin-top: 10px;">Adresa de Livrare:</label>
+          <div style="width: 60%; display: flex; flex-direction: column; gap: 10px;">
+
+            <select id="adresa_livrare_select" name="adresa_livrare_select" style="width: 100%;">
+              <option value="">-- Alege o adresă precedentă --</option>
+              <option value="noua" style="font-weight: bold; color: #3b82f6;">+ Introdu o adresă nouă...</option>
+            </select>
+
+            <input type="text" id="adresa_livrare_noua" name="adresa_livrare_noua"
+                   placeholder="Ex: Strada, Nr, Oraș, Cod Poștal"
+                   style="display: none; width: 100%;">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Specificații Comandă</legend>
+        <div class="form-row">
+          <label for="produs_serviciu">Produs / Serviciu:</label>
+          <input type="text" id="produs_serviciu" name="produs_serviciu" placeholder="Ex: Licență ERP Core">
+        </div>
+        <div class="form-row">
+          <label for="cantitate">Cantitate:</label>
+          <input type="number" id="cantitate" name="cantitate" min="1" value="1">
+        </div>
+        <div class="form-row">
+          <label for="data_livrare">Data Livrării Dorite:</label>
+          <input type="date" id="data_livrare" name="data_livrare">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Metodă de Plată</legend>
+        <p>
+          <input type="radio" id="plata_card" name="metoda_plata" value="card">
+          <label for="plata_card">Card Bancar (Online)</label>
+
+          <input type="radio" id="plata_op" name="metoda_plata" value="op">
+          <label for="plata_op">Ordin de Plată (Transfer)</label>
+
+          <input type="radio" id="plata_ramburs" name="metoda_plata" value="ramburs">
+          <label for="plata_ramburs">Ramburs la livrare</label>
+        </p>
+        <p>
+          <label for="obs_comanda">Observații privind livrarea:</label><br>
+          <textarea id="obs_comanda" name="obs_comanda" rows="3" style="width: 80%;"></textarea>
+        </p>
+      </fieldset>
+
+      <div class="form-actions">
+        <input type="reset" value="Anulează" onclick="window.location.href='dashboard.html'; return false;" title="Întoarce-te la Dashboard">
+        <input type="submit" value="Trimite Comanda">
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div id="license" style="text-align: center; padding: 20px;">
+    <h5>© 2024 Enterprise Resource Planning. Toate drepturile rezervate.</h5>
+  </div>
+</footer>
+
+<script src="scripts/data.js"></script>
+<script src="scripts/adauga_comanda.js"></script>
+</body>
+</html>

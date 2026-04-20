@@ -222,7 +222,6 @@ tr:nth-child(even) { background-color: #fcfcfc; }
     opacity: 0.5;
 }
 
-/* --- Card Lists --- */
 .card-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -322,3 +321,63 @@ footer p {
 #license h5 { font-size: 0.9rem; color: #94a3b8; }
 #license h6 { font-size: 0.8rem; color: #64748b; margin-top: 5px; }
 
+ul.nested {
+    display: none;
+    margin-left: 25px;
+    padding-left: 15px;
+    list-style-type: circle;
+    margin-top: 10px;
+}
+
+ul.nested li {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+ul.nested.active {
+    display: block;
+    animation: fadeDown 0.3s ease;
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.caret {
+    cursor: pointer;
+    user-select: none;
+    font-weight: 700;
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 5px 0;
+    transition: color 0.2s ease;
+}
+
+.caret:hover {
+    color: var(--accent);
+}
+
+.caret::before {
+    content: "\25B6";
+    color: var(--accent);
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+.caret-down::before {
+    transform: rotate(90deg);
+}
+
+#proceduri ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#proceduri > ul > li {
+    margin-bottom: 15px;
+}

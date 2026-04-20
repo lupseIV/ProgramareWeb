@@ -45,7 +45,7 @@
 </header>
 <main>
   <section id="add-contract"><h1>Adauga un contract</h1>
-    <form action="#" method="post">
+    <form id="add-contract-form" action="#" method="post">
       <fieldset>
         <legend>Angajat care adauga contract</legend>
         <div class="form-row">
@@ -100,17 +100,18 @@
             <option value="usd">Dolari (USD)</option>
           </select>
         </div>
-        <p>
+        <div class="form-row">
           <label for="durata">Durată (Zile):</label>
           <input id="durata" max="365" name="durata" step="5" type="number" value="30">
-
+        </div>
+        <div class="form-row">
           <label for="metoda_plata">Metodă Plată:</label>
           <select id="metoda_plata" name="metoda_plata">
             <option value="OP">Ordin Plată</option>
             <option value="CARD">Card Bancar</option>
             <option value="TREZ">Trezorerie</option>
           </select>
-        </p>
+        </div>
       </fieldset>
       <fieldset>
         <legend>Tip contract</legend>
@@ -152,7 +153,7 @@
 
       </fieldset>
       <div class="form-actions">
-        <input title="Șterge toate datele" type="reset" value="Resetează Formular">
+        <input type="reset" value="Anulează" onclick="window.location.href='dashboard.html'; return false;" title="Întoarce-te la Dashboard">
         <input type="submit" value="Înregistrează Contractul">
       </div>
     </form>
@@ -183,5 +184,7 @@
     <h6>Inteligență Operațională Aplicată. Toate drepturile rezervate.</h6>
   </div>
 </footer>
+
+<script src="scripts/adauga_contract.js"></script>
 </body>
 </html>
