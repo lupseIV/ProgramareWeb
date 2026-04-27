@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(() => {
 
     const dateCarousel = [
         {
@@ -23,59 +23,59 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
 
-    const carouselContainer = document.getElementById('erpCarousel');
-    const indicatorsContainer = document.getElementById('carouselIndicators');
+    const $erpCarousel = $('#erpCarousel');
+    const $carouselIndicators = $('#carouselIndicators');
+    const $carouselPrev = $('#carouselPrev')
+    const $carouselNext = $('#carouselNext')
 
     let currentIndex = 0;
     let slideInterval;
 
     dateCarousel.forEach((slideDate, index) => {
-        const slideLink = document.createElement('a');
-        slideLink.href = slideDate.link;
-        slideLink.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
-        slideLink.style.backgroundImage = `url('${slideDate.imagine}')`;
+        $carouselPrev.before($('<a>', {
+            href: slideDate.link,
+            class: `carousel-slide ${index === 0 ? 'active' : ''}`,
+        })
+            .css("backgroundImage", `url('${slideDate.imagine}')`)
+            .append($('<div>', {
+                class: 'carousel-text',
+                text: slideDate.text
+            })))
 
-        const slideText = document.createElement('div');
-        slideText.className = 'carousel-text';
-        slideText.textContent = slideDate.text;
+        $carouselIndicators.append($('<div>',{
+            class: `indicator ${index === 0 ? 'active' : ''}`,
+            click: function () {
+                goToSlide(index);
+                resetInterval();
+            }
+        }))
+    })
 
-        slideLink.appendChild(slideText);
-        carouselContainer.insertBefore(slideLink, document.getElementById('carouselPrev'));
-
-        const indicator = document.createElement('div');
-        indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
-        indicator.addEventListener('click', () => {
-            goToSlide(index);
-            resetInterval();
-        });
-        indicatorsContainer.appendChild(indicator);
-    });
-
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
+    const $carouselSlides = $('.carousel-slide');
+    const $carouselIndicator = $('.indicator');
 
     function goToSlide(index) {
-        slides[currentIndex].classList.remove('active');
-        indicators[currentIndex].classList.remove('active');
+        $carouselSlides.eq(currentIndex).removeClass('active');
+        $carouselIndicator.eq(currentIndex).removeClass('active');
 
         currentIndex = index;
 
-        if (currentIndex >= slides.length) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = slides.length - 1;
+        if (currentIndex >= $carouselSlides.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = $carouselSlides.length - 1;
 
-        slides[currentIndex].classList.add('active');
-        indicators[currentIndex].classList.add('active');
+        $carouselSlides.eq(currentIndex).addClass('active');
+        $carouselIndicator.eq(currentIndex).addClass('active');
     }
 
     function nextSlide() { goToSlide(currentIndex + 1); }
     function prevSlide() { goToSlide(currentIndex - 1); }
 
-    document.getElementById('carouselNext').addEventListener('click', () => {
+    $carouselNext.click(() => {
         nextSlide();
         resetInterval();
     });
 
-    document.getElementById('carouselPrev').addEventListener('click', () => {
+    $carouselPrev.click(() => {
         prevSlide();
         resetInterval();
     });
@@ -89,19 +89,17 @@ document.addEventListener("DOMContentLoaded", () => {
         startInterval();
     }
 
-    carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    carouselContainer.addEventListener('mouseleave', startInterval);
+    $erpCarousel.mouseenter(() => clearInterval(slideInterval));
+    $erpCarousel.mouseleave(startInterval);
 
     startInterval();
 
-    const careti = document.querySelectorAll('.caret');
-    careti.forEach(caret => {
-        caret.addEventListener('click', function() {
-            const subLista = this.parentElement.querySelector('.nested');
-            if(subLista) {
-                subLista.classList.toggle('active');
-                this.classList.toggle('caret-down');
-            }
-        });
+    $('.caret').click(function() {
+        const subLista = $(this).siblings('.nested');
+
+        if (subLista.length) {
+            subLista.slideToggle(300);
+            $(this).toggleClass('caret-down');
+        }
     });
 });

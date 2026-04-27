@@ -1,77 +1,100 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
+$(document).ready( function() {
+    const $addContractForm = $("#add-contract-form");
 
-    if (form) {
-        form.addEventListener("submit", function(event) {
+    $('<div>', {
+        id: 'mesaj-alerta',
+        style: 'display: none; color: red; margin-bottom: 15px;'
+    }).insertAfter('#add-contract h1');
+
+    if ($addContractForm.length) {
+        $addContractForm.submit(function(event) {
             let esteValid = true;
             let mesajeEroare = [];
 
-            const elementeCuEroare = form.querySelectorAll(".eroare-validare");
-            elementeCuEroare.forEach(function(el) {
-                el.classList.remove("eroare-validare");
-            });
+            $addContractForm.find('.eroare-validare').removeClass('eroare-validare')
 
-            function marcheazaEroare(idElement) {
-                const element = document.getElementById(idElement);
-                if (element) {
-                    element.classList.add("eroare-validare");
+            function marcheazaEroareFromId(jqueryElem) {
+                if (jqueryElem.length) {
+                    jqueryElem.addClass("eroare-validare");
                     esteValid = false;
                 }
             }
 
 
-            const parola = document.getElementById("parola_validare");
-            if (!parola.value || parola.value.length < 6) {
-                marcheazaEroare("parola_validare");
+            const $parola = $('#parola_validare');
+            if (!$parola.val() || $parola.val().length < 6) {
+                marcheazaEroareFromId($parola);
                 mesajeEroare.push("- Parola trebuie să conțină minim 6 caractere.");
             }
 
-            const numeClient = document.getElementById("nume_client");
-            if (!numeClient.value || numeClient.value.trim() === "") {
-                marcheazaEroare("nume_client");
+            const $numeClient = $("#nume_client");
+            if (!$numeClient.val() || $numeClient.val().trim() === "") {
+                marcheazaEroareFromId($numeClient);
                 mesajeEroare.push("- Introduceți denumirea clientului.");
             }
 
-            const cui = document.getElementById("cui_client");
-            if (!cui.value || cui.value.length < 6 || cui.value.length > 10) {
-                marcheazaEroare("cui_client");
+            const $cui = $("#cui_client");
+            if (!$cui.val() || $cui.val().length < 6 || $cui.val().length > 10) {
+                marcheazaEroareFromId($cui);
                 mesajeEroare.push("- CUI-ul trebuie să aibă între 6 și 10 caractere.");
             }
 
-            const valoare = document.getElementById("valoare");
-            if (!valoare.value || Number(valoare.value) <= 0) {
-                marcheazaEroare("valoare");
+            const $valoare = $("#valoare");
+            if (!$valoare.val() || Number($valoare.val()) <= 0) {
+                marcheazaEroareFromId($valoare);
                 mesajeEroare.push("- Valoarea contractului trebuie să fie mai mare ca 0.");
             }
 
-            const durata = document.getElementById("durata");
-            if (!durata.value || Number(durata.value) <= 0 || Number(durata.value) > 365) {
-                marcheazaEroare("durata");
+            const $durata = $("#durata");
+            if (!$durata.val() || Number($durata.val()) <= 0 || Number($durata.val()) > 365) {
+                marcheazaEroareFromId($durata);
                 mesajeEroare.push("- Durata trebuie să fie cuprinsă între 1 și 365 zile.");
             }
 
-            const servicii = document.getElementById("servicii");
-            if (servicii && servicii.selectedOptions.length === 0) {
-                marcheazaEroare("servicii");
+            const $servicii = $("#servicii");
+            if ($servicii.val() && $servicii.val().length === 0) {
+                marcheazaEroareFromId($servicii);
                 mesajeEroare.push("- Trebuie să selectați cel puțin un serviciu.");
             }
 
-            const fisier = document.getElementById("fisier_atasat");
-            if (!fisier.value) {
-                marcheazaEroare("fisier_atasat");
+            const $fisier = $("#fisier_atasat");
+            if (!$fisier.val()) {
+                marcheazaEroareFromId($fisier);
                 mesajeEroare.push("- Atașați copia PDF a contractului.");
-            } else if (!fisier.value.toLowerCase().endsWith(".pdf")) {
-                marcheazaEroare("fisier_atasat");
+            } else if (!$fisier.val().toLowerCase().endsWith(".pdf")) {
+                marcheazaEroareFromId($fisier);
                 mesajeEroare.push("- Fișierul atașat trebuie să aibă extensia .pdf");
             }
 
+            const $alerta = $('#mesaj-alerta');
             if (!esteValid) {
                 event.preventDefault();
-                alert("Atenție! Formularul conține erori:\n\n" + mesajeEroare.join("\n"));
+                $alerta
+                    .css('color', 'red')
+                    .html(
+                    "<strong>Atenție! Formularul conține erori:</strong><br>"
+                    + mesajeEroare.join("<br>"))
+                    .slideDown(300);
             } else {
                 event.preventDefault();
-                alert("Toate datele sunt corecte! Contractul ar fi fost salvat cu succes.");
+
+                $addContractForm
+                    .find('input, select, textarea')
+                    .not('[readonly]')
+                    .not('[type="submit"], [type="reset"], [type="button"]')
+                    .val('');
+
+                $alerta.removeClass('eroare-text').css('color', 'green')
+                    .text("Toate datele sunt corecte! Contractul ar fi fost salvat cu succes.")
+                    .slideDown(300);
             }
+            $('html, body').animate({
+                scrollTop: $('#add-contract').offset().top - 50
+            }, 600)
+        });
+
+        $addContractForm.on('input change', '.eroare-validare', function() {
+            $(this).removeClass('eroare-validare');
         });
     }
 });

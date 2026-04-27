@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(() => {
 
     let clienti = (typeof dateComanda !== 'undefined' && dateComanda.top_clienti)
         ? [...dateComanda.top_clienti] : [];
@@ -6,84 +6,76 @@ document.addEventListener("DOMContentLoaded", () => {
     let sortColClienti = '';
     let sortAscClienti = true;
 
-    const tbodyClienti = document.querySelector('#tabel-top-clienti tbody');
-    const thsClienti = document.querySelectorAll('#tabel-top-clienti th');
-    const chartContainer = document.getElementById('bar-chart-clienti');
+    const $tbodyClienti = $('#tabel-top-clienti tbody');
+    const $thsClienti = $('#tabel-top-clienti th');
+    const $chartContainer = $('#bar-chart-clienti');
 
     function renderClienti() {
-        if (!tbodyClienti) return;
-        tbodyClienti.innerHTML = '';
+        if (!$tbodyClienti.length) return;
+        $tbodyClienti.empty()
 
         clienti.forEach(c => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${c.nume}</strong></td>
-                <td>${c.comenzi}</td>
-                <td style="color: var(--accent); font-weight: bold;">${c.valoare.toLocaleString()} €</td>
-            `;
-            tbodyClienti.appendChild(tr);
+            $tbodyClienti.append(
+                $('<tr>')
+                    .html(`
+                        <td><strong>${c.nume}</strong></td>
+                        <td>${c.comenzi}</td>
+                        <td style="color: var(--accent); font-weight: bold;">${c.valoare.toLocaleString()} €</td>
+                        `)
+            );
         });
-
         renderChart();
     }
 
     function renderChart() {
-        if (!chartContainer) return;
-        chartContainer.innerHTML = '';
+        if (!$chartContainer.length) return;
+        $chartContainer.empty();
         if (clienti.length === 0) return;
 
         const maxVal = Math.max(...clienti.map(c => c.valoare));
 
         clienti.forEach(c => {
             const heightPct = (c.valoare / maxVal) * 100;
-
-            const barWrapper = document.createElement('div');
-            barWrapper.className = 'bar-wrapper';
-
-            const bar = document.createElement('div');
-            bar.className = 'bar';
-            bar.style.height = `${Math.max(heightPct, 5)}%`;
-            bar.innerHTML = `<span>${c.valoare >= 1000 ? (c.valoare/1000)+'k' : c.valoare}</span>`;
-
-            const label = document.createElement('div');
-            label.className = 'bar-label';
-            label.textContent = c.nume.split(' ')[0];
-
-            barWrapper.appendChild(bar);
-            barWrapper.appendChild(label);
-            chartContainer.appendChild(barWrapper);
+            $chartContainer.append(
+                $('<div>', {
+                    class: 'bar-wrapper'
+                })
+                    .append($('<div>',{
+                        class: 'bar-label',
+                        text: c.nume.split(' ')[0]
+                }))
+                    .prepend($('<div>', {
+                        class: 'bar',
+                    }).css('height', `${Math.max(heightPct, 5)}%`)
+                        .html(`<span>${c.valoare >= 1000 ? (c.valoare/1000)+'k' : c.valoare}</span>`))
+            );
         });
     }
 
-    thsClienti.forEach(th => {
-        th.addEventListener('click', () => {
-            const col = th.dataset.col;
+    $thsClienti.click(function() {
+        const col = $(this).attr('data-col');
+        if (sortColClienti === col) {
+            sortAscClienti = !sortAscClienti;
+        } else {
+            sortColClienti = col;
+            sortAscClienti = true;
+        }
 
-            if (sortColClienti === col) {
-                sortAscClienti = !sortAscClienti;
-            } else {
-                sortColClienti = col;
-                sortAscClienti = true;
+        $thsClienti.removeClass('sort-asc sort-desc');
+        $(this).addClass(sortAscClienti ? 'sort-asc' : 'sort-desc');
+
+        clienti.sort((a, b) => {
+            let valA = a[col];
+            let valB = b[col];
+
+            if (typeof valA === 'string') {
+                return sortAscClienti ? valA.localeCompare(valB) : valB.localeCompare(valA);
             }
-
-            // Actualizare indicatori vizuali (săgeți CSS)
-            thsClienti.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
-            th.classList.add(sortAscClienti ? 'sort-asc' : 'sort-desc');
-
-            // Logica de sortare a array-ului
-            clienti.sort((a, b) => {
-                let valA = a[col];
-                let valB = b[col];
-
-                if (typeof valA === 'string') {
-                    return sortAscClienti ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                }
-                return sortAscClienti ? (valA - valB) : (valB - valA);
-            });
-
-            renderClienti();
+            return sortAscClienti ? (valA - valB) : (valB - valA);
         });
-    });
+
+        renderClienti();
+    })
 
 
     let ore = (typeof dateComanda !== 'undefined' && dateComanda.ore_suplimentare)
@@ -94,11 +86,27 @@ document.addEventListener("DOMContentLoaded", () => {
     let sortColOre = '';
     let sortAscOre = true;
 
-    const tbodyOre = document.querySelector('#tabel-ore-vertical tbody');
+    const $tbodyOre = $('#tabel-ore-vertical tbody');
 
+    function createHorizontalCol(colName, colClass, colText, columnData, tdClass){
+        const $tr = $('<tr>').append(
+            $('<th>', {
+                'data-col': colName,
+                class: colClass,
+                text: colText
+            })
+        );
+        const $tds = columnData.map(val => {
+            return $('<td>', {
+                class: tdClass,
+                html: val
+            });
+        });
+        return $tr.append($tds);
+    }
     function renderOreVertical() {
-        if (!tbodyOre) return;
-        tbodyOre.innerHTML = '';
+        if (!$tbodyOre.length) return;
+        $tbodyOre.empty();
 
         const dataInbogatita = ore.map(o => ({
             nume: o.nume,
@@ -106,32 +114,30 @@ document.addEventListener("DOMContentLoaded", () => {
             bonus: o.ore * rataBonus
         }));
 
-        const trNume = document.createElement('tr');
-        trNume.innerHTML = `<th data-col="nume" class="sort-header-vert ${sortColOre === 'nume' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}">Nume Angajat</th>`;
-        dataInbogatita.forEach((o, index) => {
-            trNume.innerHTML += `<td class="${sortColOre === 'nume' ? 'sorted-col' : ''}">${o.nume}</td>`;
-        });
+        $tbodyOre
+            .append(createHorizontalCol(
+                "nume",
+                `sort-header-vert ${sortColOre === 'nume' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}`,
+                "Nume Angajat",
+                dataInbogatita.map(o => o.nume),
+                `${sortColOre === 'nume' ? 'sorted-col' : ''}`))
+            .append(createHorizontalCol(
+                "ore",
+                `sort-header-vert ${sortColOre === 'ore' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}`,
+                "Ore Suplimentare",
+                dataInbogatita.map(o => `${o.ore}h`),
+                `${sortColOre === 'ore' ? 'sorted-col' : ''}`
+            ))
+            .append(createHorizontalCol(
+                "bonus",
+                `sort-header-vert ${sortColOre === 'bonus' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}`,
+                "Bonus Generat (RON)",
+                dataInbogatita.map(o => `+ ${o.bonus} RON`),
+                `${sortColOre === 'bonus' ? 'sorted-col' : ''}`
+            ));
 
-        const trOre = document.createElement('tr');
-        trOre.innerHTML = `<th data-col="ore" class="sort-header-vert ${sortColOre === 'ore' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}">Ore Suplimentare</th>`;
-        dataInbogatita.forEach((o, index) => {
-            trOre.innerHTML += `<td class="${sortColOre === 'ore' ? 'sorted-col' : ''}">${o.ore}h</td>`;
-        });
-
-        const trBonus = document.createElement('tr');
-        trBonus.innerHTML = `<th data-col="bonus" class="sort-header-vert ${sortColOre === 'bonus' ? (sortAscOre ? 'sort-asc' : 'sort-desc') : ''}">Bonus Generat (RON)</th>`;
-        dataInbogatita.forEach((o, index) => {
-            trBonus.innerHTML += `<td class="${sortColOre === 'bonus' ? 'sorted-col' : ''}">+ ${o.bonus} RON</td>`;
-        });
-
-        tbodyOre.appendChild(trNume);
-        tbodyOre.appendChild(trOre);
-        tbodyOre.appendChild(trBonus);
-
-        document.querySelectorAll('.sort-header-vert').forEach(th => {
-            th.addEventListener('click', (e) => {
-                const col = e.target.dataset.col;
-
+        $('.sort-header-vert').click(function() {
+                const col = $(this).attr('data-col');
                 if (sortColOre === col) {
                     sortAscOre = !sortAscOre;
                 } else {
@@ -156,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 renderOreVertical();
             });
-        });
     }
 
     renderClienti();
