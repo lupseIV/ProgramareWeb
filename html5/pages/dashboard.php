@@ -1,56 +1,29 @@
-<!doctype html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>ERP - Gestionare Resurse</title>
-    <link href="styles/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/dashboard.css">
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /?page=dashboard'); exit; }
+$pageTitle = "Dashboard";
+$styles  = ["styles/dashboard.css"];
+$scripts = ["scripts/data.js", "scripts/dashboard.js"];
+?>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-</head>
-<body>
 <svg style="display: none;">
-    <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path></symbol>
-    <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></symbol>
     <symbol id="add-doc-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"></path></symbol>
     <symbol id="add-angajat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></symbol>
     <symbol id="add-comanda-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1 2-2.76 5H8.53l-.13-.27L6.16 6l-.95-2-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"></path></symbol>
-    <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></symbol>
 </svg>
-
-<header>
-    <h1>Management Resurse Inteligent</h1>
-    <nav>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24"><use href="#dashboard-icon"></use></svg>
-            <a href="dashboard.html">DashBoard</a>
-        </div>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24"><use href="#contact-icon"></use></svg>
-            <a href="contact.html">Contact</a>
-        </div>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24"><use href="#home-icon"></use></svg>
-            <a href="index.html">Home</a>
-        </div>
-    </nav>
-</header>
 
 <main>
     <section>
         <h2 >Acțiuni Rapide</h2>
         <div class="actions-grid">
-            <a href="adauga_contract.html" class="action-card">
+            <a href="?page=adauga_contract" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-doc-icon"></use></svg>
                 <div class="action-title">Contract Nou</div>
             </a>
-            <a href="adauga_angajat.html" class="action-card">
+            <a href="?page=adauga_angajat" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-angajat-icon"></use></svg>
                 <div class="action-title">Angajat Nou</div>
             </a>
-            <a href="adauga_comanda.html" class="action-card">
+            <a href="?page=adauga_comanda" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-comanda-icon"></use></svg>
                 <div class="action-title">Comandă Nouă</div>
             </a>
@@ -92,28 +65,3 @@
         </div>
     </section>
 </main>
-
-<footer>
-    <div class="container">
-        <div id="audit">
-            <h4>Audit Calitate</h4>
-            <p>Efectuăm verificări riguroase asupra integrității datelor pentru a asigura acuratețea rapoartelor.</p>
-        </div>
-        <div id="garantie">
-            <h4>Garanție Servicii</h4>
-            <p>Sistemul nostru beneficiază de suport tehnic extins, garantând remedierea oricărei neconformități.</p>
-        </div>
-        <div id="standarde">
-            <h4>Standarde 2024</h4>
-            <p>Ne aliniem anual la cele mai noi reglementări internaționale de securitate cibernetică.</p>
-        </div>
-    </div>
-    <div id="license">
-        <h5>© 2024 Enterprise Resource Planning. Toate drepturile rezervate.</h5>
-    </div>
-</footer>
-
-<script src="scripts/data.js"></script>
-<script src="scripts/dashboard.js"></script>
-</body>
-</html>

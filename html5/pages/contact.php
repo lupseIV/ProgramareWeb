@@ -4,51 +4,14 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>ERP - Contact</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-<!--    <link rel="stylesheet" href="styles/vertical-navbar.css">-->
-<!--    <link rel="stylesheet" href="styles/responsive-vertical-navbar.css">-->
-    <link rel="stylesheet" href="styles/adauga_contract.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+    <link rel="stylesheet" href="../styles/adauga_contract.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 <body>
-<svg style="display: none;">
-    <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path>
-    </symbol>
-    <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-    </symbol>
-    <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
-    </symbol>
-</svg>
-
-<header>
-    <h1>Management Resurse Inteligent</h1>
-    <nav>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24">
-                <use href="#dashboard-icon"></use>
-            </svg>
-            <a href="dashboard.html">DashBoard</a>
-        </div>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24">
-                <use href="#contact-icon"></use>
-            </svg>
-            <a href="contact.html">Contact</a>
-        </div>
-        <div class="nav-item">
-            <svg fill="#3b82f6" height="24" width="24">
-                <use href="#home-icon"></use>
-            </svg>
-            <a href="index.html">Home</a>
-        </div>
-    </nav>
-</header>
 
 <main>
     <section id="contact-info">
@@ -116,29 +79,6 @@
 
 </main>
 
-<footer>
-    <div class="container">
-        <div id="audit">
-            <h4>Audit Calitate</h4>
-            <p>Efectuăm verificări riguroase asupra integrității datelor pentru a asigura acuratețea rapoartelor,
-                minimizând erorile umane.</p>
-        </div>
-        <div id="garantie">
-            <h4>Garanție Servicii</h4>
-            <p>Sistemul nostru beneficiază de suport tehnic extins, garantând remedierea oricărei neconformități în timp
-                record.</p>
-        </div>
-        <div id="standarde">
-            <h4>Standarde 2024</h4>
-            <p>Ne aliniem anual la cele mai noi reglementări internaționale de securitate cibernetică și management al
-                proceselor.</p>
-        </div>
-    </div>
-    <div id="license">
-        <h5>© 2024 Enterprise Resource Planning.</h5>
-        <h6>Inteligență Operațională Aplicată. Toate drepturile rezervate.</h6>
-    </div>
-</footer>
 
 </body>
 </html>

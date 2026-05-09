@@ -381,3 +381,14 @@ ul.nested.active {
 #proceduri > ul > li {
     margin-bottom: 15px;
 }
+
+.login-btn {
+    background-color: #007BFF;
+    color: #ffffff !important;
+    border-radius: 1.5rem;
+    font-weight: bolder;
+}
+
+.login-btn:hover {
+    background-color: #3b82f6;
+}

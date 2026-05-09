@@ -1,45 +1,9 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8">
-  <title>ERP - Adaugă Angajat</title>
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/adauga_contract.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-</head>
-<body>
-<svg style="display: none;">
-  <symbol id="dashboard-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 13h8v-10h-8v10zm0 8h8v-6h-8v6zm10 0h8v-10h-8v10zm0-18v6h8v-6h-8z"></path>
-  </symbol>
-  <symbol id="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-  </symbol>
-  <symbol id="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
-  </symbol>
-</svg>
-
-<header>
-  <h1>Management Resurse Inteligent</h1>
-  <nav>
-    <div class="nav-item">
-      <svg fill="#3b82f6" height="24" width="24"><use href="#dashboard-icon"></use></svg>
-      <a href="dashboard.html">DashBoard</a>
-    </div>
-    <div class="nav-item">
-      <svg fill="#3b82f6" height="24" width="24"><use href="#contact-icon"></use></svg>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="nav-item">
-      <svg fill="#3b82f6" height="24" width="24"><use href="#home-icon"></use></svg>
-      <a href="index.html">Home</a>
-    </div>
-  </nav>
-</header>
-
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /?page=home'); exit; }
+$pageTitle = "ERP - Adauga Angajat";
+$styles  = ["styles/adauga_contract.css"];
+$scripts = ["scripts/adauga_angajat.js"];
+?>
 <main>
   <section id="add-employee">
     <h1>Înregistrare Angajat Nou</h1>
@@ -109,19 +73,9 @@
       </fieldset>
 
       <div class="form-actions">
-        <input type="reset" value="Anulează" onclick="window.location.href='dashboard.html'; return false;" title="Întoarce-te la Dashboard">
+        <input type="reset" value="Anulează" onclick="window.location.href='?page=dashboard'; return false;" title="Întoarce-te la Dashboard">
         <input type="submit" value="Salvează Angajatul">
       </div>
     </form>
   </section>
 </main>
-
-<footer>
-  <div id="license" style="text-align: center; padding: 20px;">
-    <h5>© 2024 Enterprise Resource Planning. Toate drepturile rezervate.</h5>
-  </div>
-</footer>
-
-<script src="scripts/adauga_angajat.js"></script>
-</body>
-</html>

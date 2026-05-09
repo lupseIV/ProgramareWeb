@@ -2,22 +2,22 @@ $(document).ready(() => {
 
     const dateCarousel = [
         {
-            link: "adauga_angajat.html",
+            link: "?page=adauga_angajat",
             text: "Modul HR: Gestionează angajații eficient și sigur.",
             imagine: "img/carousel1.jpg"
         },
         {
-            link: "adauga_contract.html",
+            link: "?page=adauga_contract",
             text: "Management Contracte: Semnare și aprobare rapidă.",
             imagine: "img/carousel2.jpg"
         },
         {
-            link: "adauga_comanda.html",
+            link: "?page=adauga_comanda",
             text: "Sistem Comenzi: Trasabilitate completă a livrărilor.",
             imagine: "img/carousel3.jfif"
         },
         {
-            link: "dashboard.html",
+            link: "?page=dashboard",
             text: "Dashboard Analitic: Decizii bazate pe date în timp real.",
             imagine: "img/carousel4.png"
         }
