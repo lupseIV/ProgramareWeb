@@ -137,6 +137,47 @@ main   { margin: 0; padding: 0; max-width: none; }
     stroke: #ffffff;
 }
 
+.captcha-question {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.captcha-question svg {
+    flex-shrink: 0;
+    stroke: var(--accent);
+}
+
+.remember-group {
+    margin-top: -0.2rem;
+}
+
+.remember-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+.remember-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
 .btn-auth:hover  { background: var(--accent-hover); transform: translateY(-1px); }
 .btn-auth:active { transform: translateY(0); }
 

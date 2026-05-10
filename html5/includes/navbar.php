@@ -13,7 +13,7 @@
 <header>
     <h1>Management Resurse Inteligent</h1>
     <nav>
-        <?php if (isset($_SESSION['logat']) && $_SESSION['logat'] === true): ?>
+        <?php if (isLogged()) : ?>
         <div class="nav-item">
             <svg fill="#3b82f6" height="24" width="24">
                 <use href="#dashboard-icon"></use>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="nav-item login-btn">
-            <?php if (!isset($_SESSION['logat']) || $_SESSION['logat'] !== true): ?>
+            <?php if (!isLogged()) : ?>
                 <a href="?page=login">Autentificare</a>
             <?php else:?>
                 <a href="?page=logout">Logout</a>

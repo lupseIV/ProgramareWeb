@@ -3,7 +3,33 @@ if (!defined('APP_RUNNING')) { header('Location: /?page=home'); exit; }
 $pageTitle = "Enterprise Resource Planning";
 $styles  = ["styles/responsive.css", "styles/carousel.css"];
 $scripts = ["scripts/home.js"];
+
+$toateSlide = [
+    ['cheie' => 'angajat',   'link' => '?page=adauga_angajat',  'text' => 'Modul HR: Gestionează angajații eficient și sigur.',       'imagine' => 'img/carousel1.jpg'],
+    ['cheie' => 'contract',  'link' => '?page=adauga_contract', 'text' => 'Management Contracte: Semnare și aprobare rapidă.',         'imagine' => 'img/carousel2.jpg'],
+    ['cheie' => 'comanda',   'link' => '?page=adauga_comanda',  'text' => 'Sistem Comenzi: Trasabilitate completă a livrărilor.',      'imagine' => 'img/carousel3.jfif'],
+    ['cheie' => 'dashboard', 'link' => '?page=dashboard',       'text' => 'Dashboard Analitic: Decizii bazate pe date în timp real.',  'imagine' => 'img/carousel4.png'],
+];
+
+$slidePerRol = [
+    'EMPLOYEE' => ['comanda', 'dashboard'],
+    'MANAGER'  => ['angajat', 'contract', 'comanda', 'dashboard'],
+    'ADMIN'    => ['angajat', 'contract', 'comanda', 'dashboard'],
+];
+if (!isLogged()) {
+    $slideFiltered = $toateSlide;
+} else {
+    $rol = $_SESSION['role'];
+    $cheiPermise = $slidePerRol[$rol] ?? $slidePerRol['EMPLOYEE'];
+    $slideFiltered = array_values(array_filter($toateSlide, function ($s) use ($cheiPermise) {
+    return in_array($s['cheie'], $cheiPermise);}));
+}
 ?>
+
+<script>
+    const carouselData = <?= json_encode($slideFiltered) ?>;
+</script>
+
 <main>
     <div class="carousel-section">
         <div class="carousel-container" id="erpCarousel">

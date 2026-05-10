@@ -14,9 +14,16 @@ if (isset($_SESSION['logat']) && $_SESSION['logat'] === true) {
 $errors    = [];
 $username  = '';
 
+// Generate a fresh CAPTCHA question on every GET load
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    require_once __DIR__ . '/../captcha.php';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username         = trim($_POST['username'] ?? '');
     $parola_introdusa = $_POST['parola'] ?? '';
+
+    $captchaInput = trim($_POST['captcha'] ?? '');
 
     if (empty($username)) {
         $errors[] = 'Numele de utilizator este obligatoriu.';
@@ -24,9 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($parola_introdusa)) {
         $errors[] = 'Parola este obligatorie.';
     }
+    if ($captchaInput === '') {
+        $errors[] = 'Răspunsul CAPTCHA este obligatoriu.';
+    } elseif ($captchaInput !== ($_SESSION['captcha_answer'] ?? '')) {
+        $errors[] = 'Răspuns CAPTCHA incorect.';
+    }
+
+    // Clear after check — prevents reuse on multiple submits
+    unset($_SESSION['captcha_answer'], $_SESSION['captcha_question']);
+
+    // Generate a fresh question for the re-rendered form
+    require_once __DIR__ . '/../captcha.php';
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("SELECT id, username, parola FROM utilizatori WHERE username = :username LIMIT 1");
+        $stmt = $pdo->prepare("SELECT id, username, parola, role FROM utilizatori WHERE username = :username LIMIT 1");
         $stmt->execute([':username' => $username]);
         $user = $stmt->fetch();
 
@@ -36,6 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['logat']    = true;
             $_SESSION['user_id']  = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role']     = $user['role'];
+
+            $upd = $pdo->prepare("UPDATE utilizatori SET logged_in = 1, logged_at = NOW() WHERE id = :id");
+            $upd->execute([':id' => $user['id']]);
+
+            if (!empty($_POST['remember_me'])) {
+                $token        = bin2hex(random_bytes(32));
+                $tokenHash    = hash('sha256', $token);
+                $expiry       = date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60);
+
+                $pdo->prepare("UPDATE utilizatori SET remember_token = :token, remember_expiry = :expiry WHERE id = :id")
+                    ->execute([':token' => $tokenHash, ':expiry' => $expiry, ':id' => $user['id']]);
+
+                setcookie('remember_token', $token, [
+                    'expires'  => time() + 30 * 24 * 60 * 60,
+                    'path'     => '/',
+                    'httponly' => true,
+                    'samesite' => 'Lax',
+                ]);
+            }
 
             header('Location: ?page=dashboard');
             exit;
@@ -105,6 +143,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     >
                 </div>
             </div>
+            <div class="form-group">
+                <label for="captcha">Verificare CAPTCHA</label>
+                <div class="captcha-question">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <span><?= htmlspecialchars($_SESSION['captcha_question'] ?? '') ?></span>
+                </div>
+                <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    <input
+                        type="number"
+                        id="captcha"
+                        name="captcha"
+                        placeholder="Răspunsul dvs."
+                        autocomplete="off"
+                        min="0"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group remember-group">
+                <label class="remember-label">
+                    <input type="checkbox" name="remember_me" value="1">
+                    Ține-mă minte 30 de zile
+                </label>
+            </div>
+
             <div class="btn-group">
                 <button type="submit" class="btn-auth">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">

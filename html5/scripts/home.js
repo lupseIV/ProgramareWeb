@@ -1,27 +1,6 @@
 $(document).ready(() => {
 
-    const dateCarousel = [
-        {
-            link: "?page=adauga_angajat",
-            text: "Modul HR: Gestionează angajații eficient și sigur.",
-            imagine: "img/carousel1.jpg"
-        },
-        {
-            link: "?page=adauga_contract",
-            text: "Management Contracte: Semnare și aprobare rapidă.",
-            imagine: "img/carousel2.jpg"
-        },
-        {
-            link: "?page=adauga_comanda",
-            text: "Sistem Comenzi: Trasabilitate completă a livrărilor.",
-            imagine: "img/carousel3.jfif"
-        },
-        {
-            link: "?page=dashboard",
-            text: "Dashboard Analitic: Decizii bazate pe date în timp real.",
-            imagine: "img/carousel4.png"
-        }
-    ];
+    const dateCarousel = (typeof carouselData !== 'undefined') ? carouselData : [];
 
     const $erpCarousel = $('#erpCarousel');
     const $carouselIndicators = $('#carouselIndicators');

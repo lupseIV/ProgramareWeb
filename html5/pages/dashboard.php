@@ -15,14 +15,17 @@ $scripts = ["scripts/data.js", "scripts/dashboard.js"];
     <section>
         <h2 >Acțiuni Rapide</h2>
         <div class="actions-grid">
+            <?php if (isAdmin() or isManager()) : ?>
             <a href="?page=adauga_contract" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-doc-icon"></use></svg>
                 <div class="action-title">Contract Nou</div>
             </a>
+
             <a href="?page=adauga_angajat" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-angajat-icon"></use></svg>
                 <div class="action-title">Angajat Nou</div>
             </a>
+            <?php endif; ?>
             <a href="?page=adauga_comanda" class="action-card">
                 <svg class="svg-icon-animated"><use href="#add-comanda-icon"></use></svg>
                 <div class="action-title">Comandă Nouă</div>
@@ -30,6 +33,7 @@ $scripts = ["scripts/data.js", "scripts/dashboard.js"];
         </div>
     </section>
 
+    <?php if (isManager()) : ?>
     <section>
         <h2>Analiză Vânzări: Top Clienți</h2>
         <div class="dashboard-grid-2col">
@@ -46,22 +50,57 @@ $scripts = ["scripts/data.js", "scripts/dashboard.js"];
                     </tbody>
                 </table>
             </div>
-
             <div>
-                <div id="bar-chart-clienti" class="chart-container">
-                </div>
+                <div id="bar-chart-clienti" class="chart-container"></div>
             </div>
         </div>
     </section>
 
     <section>
         <h2>Gestiune HR: Evidență Ore Suplimentare</h2>
-
         <div class="table-wrapper">
             <table class="data-table vertical-table" id="tabel-ore-vertical">
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </section>
+    <?php endif; ?>
+
+    <?php if (isAdmin()) : ?>
+    <section>
+        <h2>Utilizatori Conectați</h2>
+        <?php
+            $stmt = $pdo->prepare("SELECT username, role, logged_at FROM utilizatori 
+                           WHERE logged_in = 1 AND username <> :currentUser
+                           ORDER BY logged_at DESC");
+
+            $stmt->execute([':currentUser' => $_SESSION['username']]);
+
+            $utilizatoriLogati = $stmt->fetchAll();
+        ?>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Utilizator</th>
+                    <th>Rol</th>
+                    <th>Conectat de la</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($utilizatoriLogati)): ?>
+                    <tr><td colspan="3">Niciun utilizator conectat momentan.</td></tr>
+                <?php else: ?>
+                    <?php foreach ($utilizatoriLogati as $u): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($u['username']) ?></td>
+                        <td><?= htmlspecialchars($u['role']) ?></td>
+                        <td><?= htmlspecialchars($u['logged_at']) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </section>
+    <?php endif; ?>
+
 </main>
