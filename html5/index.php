@@ -2,6 +2,7 @@
 
 if (!defined('APP_RUNNING')) session_start();
 require 'config/database.php';
+require 'config/sqlite.php';
 require 'includes/functions.php';
 define('APP_RUNNING', true);
 
@@ -11,6 +12,7 @@ $allowed = [
     'home', 'dashboard', 'contact',
     'authentication', 'logout',
     'adauga_angajat', 'adauga_comanda', 'adauga_contract',
+    'fisiere', 'profile',
 ];
 
 $public = ['authentication','home','contact'];
@@ -19,7 +21,6 @@ if (!in_array($page, $allowed)) {
     $page = '404';
 }
 
-// Remember me — auto-login if no session but valid cookie exists
 if (!isset($_SESSION['logat']) && isset($_COOKIE['remember_token'])) {
     $cookieToken = $_COOKIE['remember_token'];
     $tokenHash   = hash('sha256', $cookieToken);
@@ -32,14 +33,12 @@ if (!isset($_SESSION['logat']) && isset($_COOKIE['remember_token'])) {
     $user = $stmt->fetch();
 
     if ($user) {
-        // Valid token — restore session
         session_regenerate_id(true);
         $_SESSION['logat']    = true;
         $_SESSION['user_id']  = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['role']     = $user['role'];
 
-        // Roll the token — generate a new one on each auto-login (prevents token reuse)
         $newToken     = bin2hex(random_bytes(32));
         $newTokenHash = hash('sha256', $newToken);
         $newExpiry    = date('Y-m-d H:i:s', time() + 30 * 24 * 60 * 60);
@@ -57,7 +56,6 @@ if (!isset($_SESSION['logat']) && isset($_COOKIE['remember_token'])) {
         $pdo->prepare("UPDATE utilizatori SET logged_in = 1, logged_at = NOW() WHERE id = :id")
             ->execute([':id' => $user['id']]);
     } else {
-        // Invalid or expired token — delete the cookie
         setcookie('remember_token', '', ['expires' => time() - 1, 'path' => '/']);
     }
 }

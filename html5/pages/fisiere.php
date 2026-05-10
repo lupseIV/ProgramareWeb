@@ -1,18 +1,10 @@
 <?php
-/**
- * COMMIT 6 — File management (list, download, delete)
- * - Lists all uploaded files from SQLite
- * - Download: streams file content with correct MIME headers
- * - Delete: POST handler calls stergeFisier() + nullifies document_id in MySQL
- */
 if (!defined('APP_RUNNING')) { header('Location: /?page=home'); exit; }
 if (!hasRole('ADMIN', 'MANAGER')) { header('Location: ?page=dashboard'); exit; }
 
 $pageTitle = "Gestionare Fișiere";
 $styles    = ["styles/adauga_contract.css", "styles/fisiere.css"];
 
-// ── Download handler ───────────────────────────────────────────────────────
-// Must be checked before any output is committed to the ob buffer.
 if (isset($_GET['action']) && $_GET['action'] === 'descarcare' && isset($_GET['id'])) {
     $fileId = (int) $_GET['id'];
 
@@ -23,7 +15,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'descarcare' && isset($_GET['i
     $file = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($file && $file['continut'] !== null) {
-        // Discard the ob_start() buffer opened by index.php so we can send raw headers
         ob_end_clean();
 
         $mime = $file['mime_type'] ?: 'application/octet-stream';
@@ -36,19 +27,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'descarcare' && isset($_GET['i
         echo $file['continut'];
         exit;
     }
-    // If not found, fall through and show an error on the page
     $errors[] = 'Fișierul cu ID-ul ' . $fileId . ' nu a fost găsit în baza de date.';
 }
 
-// ── DELETE handler ─────────────────────────────────────────────────────────
 $success = false;
 $errors  = $errors ?? [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sterge_id'])) {
     $fileId = (int) $_POST['sterge_id'];
 
-    // 1. Nullify document_id / poza_profil_id references in MySQL so foreign
-    //    integrity is maintained and forms no longer point to a deleted blob.
     $mysqlUpdates = [
         "UPDATE contracte SET document_id    = NULL WHERE document_id    = :id",
         "UPDATE comenzi   SET document_id    = NULL WHERE document_id    = :id",
@@ -59,15 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sterge_id'])) {
         $pdo->prepare($sql)->execute([':id' => $fileId]);
     }
 
-    // 2. Delete the blob from SQLite
     if (stergeFisier($sqlite, $fileId)) {
         $success = true;
     } else {
-        $errors[] = 'Fișierul nu a putut fi șters (poate nu există).';
+        $errors[] = 'Fișierul nu a putut fi șters.';
     }
 }
 
-// ── Load file list from SQLite ─────────────────────────────────────────────
 $stmtList = $sqlite->query(
     "SELECT id, original_name, mime_type, size, tip, data_upload
      FROM fisiere
@@ -75,7 +60,6 @@ $stmtList = $sqlite->query(
 );
 $fisiere = $stmtList->fetchAll(PDO::FETCH_ASSOC);
 
-// Helper: human-readable file size
 function formatBytes(int $bytes): string {
     if ($bytes >= 1_048_576) return round($bytes / 1_048_576, 1) . ' MB';
     if ($bytes >= 1_024)     return round($bytes / 1_024, 1)     . ' KB';

@@ -21,6 +21,14 @@
             <a href="?page=dashboard">DashBoard</a>
         </div>
         <?php endif; ?>
+        <?php if (hasRole('ADMIN', 'MANAGER')) : ?>
+        <div class="nav-item">
+            <svg fill="#3b82f6" height="24" width="24" viewBox="0 0 24 24">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 17v-2h8v2H8zm0-4v-2h8v2H8z"/>
+            </svg>
+            <a href="?page=fisiere">Fișiere</a>
+        </div>
+        <?php endif; ?>
         <div class="nav-item">
             <svg fill="#3b82f6" height="24" width="24">
                 <use href="#contact-icon"></use>
@@ -33,6 +41,11 @@
             </svg>
             <a href="?page=home">Home</a>
         </div>
+        <?php if (isLogged()) : ?>
+        <div class="nav-item">
+            <a href="?page=profile">Profil</a>
+        </div>
+        <?php endif; ?>
 
         <div class="nav-item login-btn">
             <?php if (!isLogged()) : ?>

@@ -16,5 +16,11 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    die("Eroare conexiune bază de date: " . $e->getMessage());
+    die("Eroare conexiune PDO: " . $e->getMessage());
+}
+
+$mysqli = new mysqli($host, $dbUser, $dbPass, $dbName);
+$mysqli->set_charset('utf8mb4');
+if ($mysqli->connect_error) {
+    die("Eroare conexiune MySQLi: " . $mysqli->connect_error);
 }

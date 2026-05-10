@@ -1,9 +1,4 @@
 <?php
-/**
- * COMMIT 2 — SQLite connection (additional database)
- * Used as NoSQL-like document store for uploaded files (BLOB storage).
- * $sqlite → PDO SQLite
- */
 $sqliteFile = __DIR__ . '/../db/fisiere.sqlite';
 
 if (!is_dir(__DIR__ . '/../db')) {
