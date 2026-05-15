@@ -103,8 +103,8 @@ $(document).ready(function () {
             err($gdpr, 'Acordul GDPR trebuie să fie fișier .pdf.');
 
         const $cv = $('#cv_atasat');
-        if ($cv.val() && !$cv.val().toLowerCase().endsWith('.pdf'))
-            err($cv, 'CV-ul trebuie să fie fișier .pdf.');
+        // if ($cv.val() && !$cv.val().toLowerCase().endsWith('.pdf'))
+        //     err($cv, 'CV-ul trebuie să fie fișier .pdf.');
 
         if (!ok) {
             e.preventDefault();

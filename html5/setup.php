@@ -7,8 +7,8 @@ $queries = [
 "CREATE TABLE IF NOT EXISTS angajati (
     id              INT AUTO_INCREMENT PRIMARY KEY,
     utilizator_id   INT NOT NULL UNIQUE,
-    nume            VARCHAR(100) NOT NULL,
-    prenume         VARCHAR(100) NOT NULL,
+    nume            TEXT NOT NULL,
+    prenume         TEXT NOT NULL,
     cnp             CHAR(13),
     gen             ENUM('M','F') NULL,
     data_nasterii   DATE NULL,

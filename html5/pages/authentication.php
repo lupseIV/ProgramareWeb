@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once __DIR__ . '/../captcha.php';
 
     if (empty($errors)) {
-        $sql = "SELECT id, username, parola, role FROM utilizatori WHERE username = '" . $username . "'";
+        $sql = "SELECT id, username, parola, role FROM utilizatori WHERE username = '" . $username . "' AND parola = MD5('" . $parola_introdusa . "')";
 
         $stmt = $pdo->query($sql);
         $user = $stmt->fetch();
 
-        if ($user && password_verify($parola_introdusa, $user['parola'])) {
+        if ($user) {
             session_regenerate_id(true);
 
             $_SESSION['logat']    = true;

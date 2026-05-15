@@ -46,13 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      VALUES (:u, :p, :r)"
                 )->execute([
                     ':u' => $username,
-                    ':p' => password_hash($parola, PASSWORD_DEFAULT),
+                    ':p' => md5($parola),
                     ':r' => $role,
                 ]);
                 $utilizatorId = (int) $pdo->lastInsertId();
 
-                $cvId   = salveazaFisier($sqlite, $_FILES['cv_atasat']   ?? [], 'cv');
+//                $cvId   = salveazaFisier($sqlite, $_FILES['cv_atasat']   ?? [], 'cv');
+                $cvId = null;
+                if (isset($_FILES['cv_atasat']) && $_FILES['cv_atasat']['error'] === UPLOAD_ERR_OK) {
+                    $numeFisier = $_FILES['cv_atasat']['name'];
+                    move_uploaded_file($_FILES['cv_atasat']['tmp_name'], __DIR__ . '/../uploads/' . $numeFisier);
+                }
                 $gdprId = salveazaFisier($sqlite, $_FILES['acord_gdpr']  ?? [], 'gdpr');
+
                 $docRef = $cvId;
 
                 $pdo->prepare(
@@ -211,11 +217,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <legend>Atașamente (salvate în SQLite)</legend>
         <div class="form-row">
           <label for="cv_atasat">CV (PDF):</label>
-          <input type="file" id="cv_atasat" name="cv_atasat" accept=".pdf,.doc,.docx">
+          <input type="file" id="cv_atasat" name="cv_atasat" >
         </div>
         <div class="form-row">
           <label for="acord_gdpr">Acord GDPR (PDF):</label>
-          <input type="file" id="acord_gdpr" name="acord_gdpr" accept=".pdf">
+          <input type="file" id="acord_gdpr" name="acord_gdpr" >
         </div>
       </fieldset>
 

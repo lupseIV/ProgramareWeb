@@ -123,7 +123,7 @@ $scripts = ["scripts/data.js", "scripts/dashboard.js"];
                     <?php foreach ($utilizatoriLogati as $u): ?>
                         <tr class="user-row"
                             data-username="<?= htmlspecialchars($u['username']) ?>"
-                            data-nume="<?= ($u['nume'] ?? '') . ' ' . ($u['prenume'] ?? '') ?>"
+                            data-nume="<?=($u['nume'] ?? '') . ' ' . ($u['prenume'] ?? '') ?>"
                             data-role="<?= htmlspecialchars($u['role']) ?>"
                             data-email="<?= htmlspecialchars($u['email'] ?? 'Nespecificat') ?>"
                             data-dep="<?= htmlspecialchars($u['departament'] ?? 'Nespecificat') ?>"
@@ -169,7 +169,7 @@ $scripts = ["scripts/data.js", "scripts/dashboard.js"];
             $('#m-username').text($row.data('username'));
 
             var numeIntreg = $row.data('nume').trim();
-            $('#m-nume').append(numeIntreg !== '' ? numeIntreg : 'Profil incomplet');
+            $('#m-nume').html(numeIntreg !== '' ? numeIntreg : 'Profil incomplet');
 
             $('#m-role').text($row.data('role'));
             $('#m-email').text($row.data('email'));

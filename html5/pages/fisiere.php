@@ -5,6 +5,16 @@ if (!hasRole('ADMIN', 'MANAGER')) { header('Location: ?page=dashboard'); exit; }
 $pageTitle = "Gestionare Fișiere";
 $styles    = ["styles/adauga_contract.css", "styles/fisiere.css"];
 
+if (isset($_GET['action']) && $_GET['action'] === 'vizualizare' && isset($_GET['file'])) {
+    $numeFisier = $_GET['file'];
+    $cale = __DIR__ . '/../uploads/' . $numeFisier;
+
+    ob_end_clean();
+    header('Content-Type: text/plain; charset=utf-8');
+    echo file_get_contents($cale);
+    exit;
+}
+
 if (isset($_GET['action']) && $_GET['action'] === 'descarcare' && isset($_GET['id'])) {
     $fileId = (int) $_GET['id'];
 

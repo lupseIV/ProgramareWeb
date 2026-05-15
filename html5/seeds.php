@@ -36,7 +36,7 @@ function insertUser(PDO $pdo, string $username, string $plainPass, string $role)
          VALUES (:u, :p, :r)"
     )->execute([
         ':u' => $username,
-        ':p' => password_hash($plainPass, PASSWORD_DEFAULT),
+        ':p' => md5($plainPass),
         ':r' => $role,
     ]);
     $id = (int) $pdo->lastInsertId();
